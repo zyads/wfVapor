@@ -1,9 +1,6 @@
 FROM 812206152185.dkr.ecr.us-west-2.amazonaws.com/wf-base:fbe8-main
 
-
-RUN python3 -m pip install Cython &&\
-    python setup. py install &&\
-    python3 -m pip install Cython --install-option="--no-cython-compile"
+RUN python3 -m pip install Cython
 
 # Or use managed library distributions through the container OS's package
 # manager.
