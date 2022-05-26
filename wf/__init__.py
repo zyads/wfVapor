@@ -17,13 +17,13 @@ def vapor_task(read1: LatchFile, read2: LatchFile, read3: LatchFile) -> LatchFil
 
     _vapor1_cmd = [
         "vapor",
-        "bed", #How to specify the input format? bed or vcf?
+        "bed",  # How to specify the input format? bed or vcf?
         "--sv-input",
         read1.local_path,
         "--output-path",
-        str(sam_file),     #str(Path(reads).resolve()), ... should I use the Path object?
+        str(sam_file),  # str(Path(reads).resolve()), ... should I use the Path object?
         "--reference",
-        read2.local_path,    
+        read2.local_path,
         "--pacbio-input",
         read3.local_path,
     ]
@@ -33,35 +33,14 @@ def vapor_task(read1: LatchFile, read2: LatchFile, read3: LatchFile) -> LatchFil
     return LatchFile(str(sam_file), "latch:///vapor_result.sam")
 
 
-# @small_task
-# def sort_bam_task(sam: LatchFile) -> LatchFile:
-
-#     bam_file = Path("covid_sorted.bam").resolve()
-
-#     _samtools_sort_cmd = [
-#         "samtools",
-#         "sort",
-#         "-o",
-#         str(bam_file),
-#         "-O",
-#         "bam",
-#         sam.local_path,
-#     ]
-
-#     subprocess.run(_samtools_sort_cmd)
-
-#     return LatchFile(str(bam_file), "latch:///covid_sorted.bam")
-
-
 @workflow
-def vapor(read1: LatchFile, read2: LatchFile, read3) -> LatchFile:
+def vapor(read1: LatchFile, read2: LatchFile, read3: LatchFile) -> LatchFile:
     """Description...
 
     markdown header
     ----
 
-    Write some documentation about your workflow in
-    markdown here:
+    Be a little creative here ;)
 
     > Regular markdown constructs work as expected.
 
@@ -96,5 +75,8 @@ def vapor(read1: LatchFile, read2: LatchFile, read3) -> LatchFile:
 
         read3:
             PacBio read file to be assembled.
+
+          __metadata__:
+            display_name: Read3
     """
     return vapor_task(read1=read1, read2=read2, read3=read3)
